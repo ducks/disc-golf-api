@@ -1,0 +1,6 @@
+[global.databases.postgres]
+url = "postgresql://postgres:leadcardsecondround@disc-golf-app_db_1/discgolfapp"
+
+
+[development]
+address = "0.0.0.0"
