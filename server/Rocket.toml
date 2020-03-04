@@ -1,5 +1,5 @@
 [global.databases.postgres]
-url = "postgresql://postgres:leadcardsecondround@disc-golf-app_db_1/discgolfapp"
+url = "postgresql://postgres:leadcardsecondround@172.21.0.2/discgolfapp"
 
 
 [development]

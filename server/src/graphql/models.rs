@@ -1,14 +1,17 @@
+use crate::schema::users;
+
 pub mod user {
-    #[derive(GraphQLObject)]
-    pub struct User {
-      pub created: i32,
-      pub account_number: i32,
+    #[derive(GraphQLObject, Queryable)]
+    pub struct User<'a> {
+        pub created: i32,
+        pub account_number: &'a str,
     }
 
-    #[derive(GraphQLInputObject)]
-    pub struct UserCreate {
-      pub created: i32,
-      pub account_number: i32,
+    #[derive(Insertable)]
+    #[table_name="users"]
+    pub struct UserInsert<'a> {
+      pub created: &'a i32,
+      pub account_number: &'a str,
     }
 }
 
@@ -27,9 +30,9 @@ pub mod course {
 pub mod hole {
     #[derive(GraphQLObject)]
     pub struct Hole {
-      pub id: String,
-      pub distance: i32,
-      pub course_id: String,
-      pub par: i32,
+        pub id: String,
+        pub distance: i32,
+        pub course_id: String,
+        pub par: i32,
     }
 }

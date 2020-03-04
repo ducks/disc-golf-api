@@ -1,9 +1,9 @@
 use juniper::{Context as JuniperContext, FieldResult, RootNode};
 
-use crate::graphql::models::user::{User, UserCreate};
+use crate::graphql::models::user::{User};
 use crate::db::Postgres;
 
-use std::fmt;
+use uuid::Uuid;
 
 pub struct Context {
     pub connection: Postgres
@@ -11,21 +11,13 @@ pub struct Context {
 
 impl JuniperContext for Context {}
 
-impl fmt::Debug for Context {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "yo context: {:#?}", self)
-    }
-}
-
 pub struct QueryRoot;
 
 graphql_object!(QueryRoot: Context |&self| {
     field user(&executor) -> FieldResult<User> {
-        println!("{:?}", executor.context().connection);
-
         let user = User {
             created: 1551909311,
-            account_number: 123456789,
+            account_number: "123456789",
         };
         Ok(user)
     }
@@ -34,10 +26,13 @@ graphql_object!(QueryRoot: Context |&self| {
 pub struct MutationRoot;
 
 graphql_object!(MutationRoot: Context |&self| {
-    field add_user(&executor, user_create: UserCreate) -> FieldResult<User> {
+    field add_user(&executor) -> FieldResult<User> {
+        let account_number = Uuid::new_v4().hyphenated().to_string();
+        let created = 20200229;
+
         let user = User {
-            created: user_create.created,
-            account_number: user_create.account_number,
+            created: created,
+            account_number: &account_number,
         };
         Ok(user)
     }

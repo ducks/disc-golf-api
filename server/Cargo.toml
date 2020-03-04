@@ -15,4 +15,8 @@ juniper_rocket = "0.5.2"
 [dependencies.rocket_contrib]
 version = "0.4.2"
 default-features = false
-features = ["diesel_postgres_pool"]
+features = ["diesel_postgres_pool", "uuid"]
+
+[dependencies.uuid]
+version = "0.4"
+features = ["serde", "v4"]

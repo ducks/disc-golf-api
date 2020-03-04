@@ -2,10 +2,12 @@
 
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate juniper;
+#[macro_use] extern crate diesel;
 extern crate juniper_rocket;
 
 mod db;
 mod graphql;
+mod schema;
 
 fn main() {
     rocket::ignite()
